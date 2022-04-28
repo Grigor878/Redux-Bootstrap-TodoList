@@ -5,9 +5,10 @@ import TodoList from './TodoList'
 import CompletedItems from './CompletedItems'
 
 const Todo = () => {
+
     return (
         <div className='container'>
-            <h1>My Todo List</h1>
+            <h1>Redux Todo</h1>
             <AddTodoForm />
             <TodoList />
             <CompletedItems />

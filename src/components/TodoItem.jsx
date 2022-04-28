@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux'
-import { toggleCompleted, deleteTodo } from '../redux/todoSlice';
+import { toggleCompleteAsync, deleteTodosAsync } from '../redux/todoSlice';
 
 const TodoItem = ({ id, title, completed }) => {
 
@@ -8,12 +8,18 @@ const TodoItem = ({ id, title, completed }) => {
 
   const handleCompleteClick = () => {
     dispatch(
-      toggleCompleted({ id: id, completed: !completed }))
+      toggleCompleteAsync({ id, completed: !completed }))
   }
 
   const handleDeleteClick = () => {
-    dispatch(deleteTodo({ id: id }))
+    if (!completed) {
+      dispatch(deleteTodosAsync({ id }))
+    }
   }
+
+  // const handleEditClick = () => {
+  //   dispatch(editTodo())
+  // }
 
   return (
     <li className={`list-group-item ${completed && 'list-group-item-success'}`}>
@@ -21,13 +27,16 @@ const TodoItem = ({ id, title, completed }) => {
         <span className='d-flex align-items-center'>
           <input
             type='checkbox'
-            className='mr-3'
+            style={{ 'cursor': 'pointer', 'marginRight': '11px' }}
             checked={completed}
             onChange={handleCompleteClick}
           />
           {title}
         </span>
-        <button onClick={handleDeleteClick} className='btn btn-danger'>Delete</button>
+        <div>
+          {/* <button onClick={handleEditClick} className='btn btn-primary'>Edit</button> */}
+          <button onClick={handleDeleteClick} className='btn btn-danger m-1'>Delete</button>
+        </div>
       </div>
     </li>
   );
